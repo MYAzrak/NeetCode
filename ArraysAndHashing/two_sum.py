@@ -1,12 +1,26 @@
-class Solution:
-    def twoSum(self, nums, target: int):
-        nums_dict = {}
-        for index, num in enumerate(nums):
-            if (target - num) in nums_dict.keys():
-                return nums_dict[target - num], index
-            nums_dict[num] = index
-        return ()
+# Brute force
+# Time: O(N^2)
+# Space: O(1)
+def twoSum(nums, target):
+    n = len(nums)
+    for i in range(n):
+        for j in range(i + 1, n):
+            if nums[i] + nums[j] == target:
+                return [i, j]
 
 
-test_case = Solution()
-print(test_case.twoSum([2, 7, 11, 15], 9))
+# Using hashmaps: We go over nums and for each num we calculate target - num and check if its in the hashmap
+# Time: O(N)
+# Memory: O(N)
+def twoSum(nums, target):
+    hashmap = {}  # num: index
+    for i, num in enumerate(nums):
+        if target - num in hashmap.keys():
+            return [i, hashmap[target - num]]
+        else:
+            hashmap[num] = i
+
+
+print(twoSum(nums=[2, 7, 11, 15], target=9))
+print(twoSum(nums=[3, 2, 4], target=6))
+print(twoSum(nums=[3, 3], target=6))
