@@ -1,29 +1,35 @@
-class Solution:
-    def isAnagram(self, s: str, t: str) -> bool:
-        return sorted(s) == sorted(t)
+# Using sorting
+# Time: O(nlogn)
+# Space: O(1) Assuming that sorted doesn't need any space
+def isAnagram(s, t):
+    return list(s).sort() == list(t).sort()
 
 
-test = Solution()
-print(test.isAnagram("anagram", "nagaram"))
+print(isAnagram("anagram", "nagaram"))
 
-# kshatriyas solution using hash tables:
-while False:
 
-    class Solution:
-        def isAnagram(self, s: str, t: str) -> bool:
-            count = defaultdict(int)
+# Using Hashmaps
+# Time: O(n)
+# Space: O(n)
+def isAnagram(s, t):
+    if len(s) != len(t):  # Saves some time
+        return False
+    s_map = {}
+    t_map = {}
 
-            # Count the frequency of characters in string s
-            for x in s:
-                count[x] += 1
+    for i in range(len(s)):
+        if s[i] in s_map.keys():
+            s_map[s[i]] += 1
+        else:
+            s_map[s[i]] = 1
 
-            # Decrement the frequency of characters in string t
-            for x in t:
-                count[x] -= 1
+        if t[i] in t_map.keys():
+            t_map[t[i]] += 1
+        else:
+            t_map[t[i]] = 1
 
-            # Check if any character has non-zero frequency
-            for val in count.values():
-                if val != 0:
-                    return False
+    return s_map == t_map
 
-            return True
+
+print(isAnagram("anagram", "nagaram"))
+print(isAnagram("car", "rat"))
