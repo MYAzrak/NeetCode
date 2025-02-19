@@ -1,21 +1,21 @@
-class Solution:
-    def isValid(self, s: str) -> bool:
-        valid_order = {
-            ")": "(",
-            "]": "[",
-            "}": "{",
-        }
-        stack = []
-        for char in s:
-            if char in valid_order.keys():
-                if stack and stack[-1] == valid_order[char]:
-                    stack.pop()
-                else:
-                    return False
+# Using a stack
+# Time: O(n)
+# Space: O(n)
+def isValid(s: str) -> bool:
+    stack = []
+    valid_parentheses = {"[": "]", "{": "}", "(": ")"}
+    for char in s:
+        if char not in valid_parentheses:
+            if stack and valid_parentheses[stack[-1]] == char:
+                stack.pop()
             else:
-                stack.append(char)
-        return True if not stack else False
+                return False
+        else:
+            stack.append(char)
+    return True if not stack else False
 
 
-test = Solution()
-print(test.isValid("]"))
+print(isValid(s="()"))
+print(isValid(s="()[]{}"))
+print(isValid(s="(]"))
+print(isValid(s="([])"))
