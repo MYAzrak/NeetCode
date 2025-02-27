@@ -5,30 +5,32 @@
 #         self.next = next
 
 
-# Iterative solution, O(n), O(1)
-class Solution:
-    def reverseList(self, head):
-        prev, current = None, head
+# Iterative solution.
+# Time: O(n)
+# Space: O(1)
+def reverseList(head):
+    prev, curr = None, head
 
-        while current:
-            temp_next = current.next
-            current.next = prev
-            prev = current
-            current = temp_next
+    while curr:
+        temp = curr.next
+        curr.next = prev
+        prev = curr
+        curr = temp
 
-        return prev
+    return prev
 
 
-# Recursive solution, O(n), O(n)
-class Solution:
-    def reverseList(self, head):
-        if not head:
-            return None
+# Recursive solution.
+# Time: O(n)
+# Space: O(n)
+def reverseList(head):
+    if not head:  # empty
+        return None
 
-        new_head = head
-        if head.next:
-            new_head = self.reverseList(head.next)
-            head.next.next = head
-        head.next = None
+    new_head = head  # save curr head
+    if head.next:  # if there is a subproblem to reverse
+        new_head = reverseList(head.next)  # reverse it
+        head.next.next = head  # 1 -> 2 -> None --> 1 -> 2 -> 1
+    head.next = None  # --> None <- 1 <- 2
 
-        return new_head
+    return new_head
