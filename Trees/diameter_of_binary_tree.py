@@ -6,28 +6,18 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
-    def diameterOfBinaryTree(self, root) -> int:
-        result = 0
+def diameterOfBinaryTree(root) -> int:
+    result = 0
 
-        def dfs(root) -> int:
-            nonlocal result
-            if not root:
-                return 0
-            left = dfs(root.left)
-            right = dfs(root.right)
-            result = max(result, left + right)
-            return 1 + max(left, right)
+    # Returns the height
+    def dfs(node) -> int:
+        nonlocal result  # meaning that it is the same variable `result` before this function
+        if not node:
+            return 0
+        left = dfs(node.left)
+        right = dfs(node.right)
+        result = max(result, left + right)
+        return 1 + max(left, right)
 
-        dfs(root)
-        return result
-
-
-root = TreeNode(1)
-root.left = TreeNode(2)
-root.right = TreeNode(3)
-root.left.left = TreeNode(4)
-root.left.right = TreeNode(5)
-
-test = Solution()
-print(test.diameterOfBinaryTree(root))
+    dfs(root)
+    return result
