@@ -6,28 +6,46 @@ class TreeNode:
         self.right = right
 
 
-class Solution:
-    def isBalanced(self, root) -> bool:
-        if (not root) or (not root.right and not root.left):
-            return True
+# Brute force
+# Time: O(N^2)
+# Space: O(N)
+def isBalanced(root) -> bool:
+    is_balanced = True
 
-        def height(root):
-            if not root:
-                return [True, 0]
+    def depth(node):
+        if not node:
+            return 0
+        return 1 + max(depth(node.right), depth(node.left))
 
-            left, right = height(root.right), height(root.left)
-            balanced = right[0] and left[0] and abs(left[1] - right[1]) <= 1
+    def dfs(node):
+        nonlocal is_balanced
+        if node:
+            depth_right = depth(node.right)
+            depth_left = depth(node.left)
+            if abs(depth_right - depth_left) > 1:
+                is_balanced = False
+                return
+            dfs(node.left)
+            dfs(node.right)
 
-            return [balanced, 1 + max(left[1], right[1])]
+    dfs(root)
+    return is_balanced
 
-        return height(root)[0]
 
+# DFS but starting from the bottom up to visit each node once
+# Time: O(n)
+# Space: O(n)
+def isBalanced(root) -> bool:
+    if (not root) or (not root.right and not root.left):
+        return True
 
-test = Solution()
-root = TreeNode(3)
-root.left = TreeNode(9)
-root.right = TreeNode(20)
-root.right.left = TreeNode(15)
-root.right.right = TreeNode(7)
+    def height(node):
+        if not node:
+            return [True, 0]
 
-print(test.isBalanced(root))
+        left, right = height(node.right), height(node.left)  # Start from the end
+        balanced = right[0] and left[0] and abs(left[1] - right[1]) <= 1
+
+        return [balanced, 1 + max(left[1], right[1])]
+
+    return height(root)[0]
