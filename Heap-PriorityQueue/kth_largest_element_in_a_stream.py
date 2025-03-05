@@ -8,10 +8,10 @@ import heapq
 class KthLargest:
     def __init__(self, k: int, nums):
         self.min_heap, self.k = nums, k
-        heapq.heapify(self.min_heap)
+        heapq.heapify(self.min_heap)  # heapify is O(n) operation
 
     def add(self, val: int) -> int:
         heapq.heappush(self.min_heap, val)
         while len(self.min_heap) > self.k:
-            heapq.heappop(self.min_heap) # Pops the smallest element
+            heapq.heappop(self.min_heap)  # Pops the smallest element
         return self.min_heap[0]
