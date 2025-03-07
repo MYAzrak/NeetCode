@@ -1,4 +1,4 @@
-# Similar to "Climbing Stairs"
+# Dynamic programming. Similar to "Climbing Stairs"
 # Time: O(n)
 # Space: O(1)
 def minCostClimbingStairs(cost) -> int:
