@@ -1,5 +1,5 @@
-# Time: O()
-# Space: O()
+# Time: O(min(m,n) * (m+n))
+# Space: O(m+n) where m and n are the lengths of str1 & str2
 def gcdOfStrings(str1: str, str2: str) -> str:
     def is_divisor(s, t):
         return s == t * (len(s) // len(t))
